@@ -8,6 +8,40 @@ class Solution:
         if not s:
             return s
 
+        longest = ''
+        length = 0
+        for i in range(len(s)):
+            sub = self.find_palindrome(s, i, i)
+            if len(sub) > length:
+                longest = sub
+                length = len(sub)
+            sub = self.find_palindrome(s, i, i + 1)
+            if len(sub) > length:
+                longest = sub
+                length = len(sub)
+        
+        return longest
+
+    def find_palindrome(self, s: str, left: int, right: int) -> str:
+        while left >= 0 and right < len(s):
+            if s[left] != s[right]:
+                break
+            left -= 1
+            right += 1
+        
+        return s[left + 1 : right]
+
+
+class Solution:
+    """
+    @param s: input string
+    @return: a string as the longest palindromic substring
+    """
+    def longest_palindrome(self, s: str) -> str:
+        # write your code here
+        if not s:
+            return s
+
         n = len(s)
         left = right = -1
         length = 0
@@ -31,4 +65,40 @@ class Solution:
             start += 1
             end -= 1
         return True
+
+
+# runs fast but not recommended because of poor readability
+class Solution:
+    """
+    @param s: input string
+    @return: a string as the longest palindromic substring
+    """
+    def longest_palindrome(self, s: str) -> str:
+        # write your code here
+        if not s:
+            return s
+
+        left, right = -1, -1
+        length = 0
+        for i in range(len(s)):
+            sub_left, sub_right = self.find_palindrome(s, i, i)
+            if (length_here := sub_right - sub_left + 1) > length:
+                left, right = sub_left, sub_right
+                length = length_here
+            sub_left, sub_right = self.find_palindrome(s, i, i + 1)
+            if (length_here := sub_right - sub_left + 1) > length:
+                left, right = sub_left, sub_right
+                length = length_here
+        
+        return s[left : right + 1]
+
+    def find_palindrome(self, s: str, left: int, right: int):
+        while left >= 0 and right < len(s):
+            if s[left] != s[right]:
+                break
+            left -= 1
+            right += 1
+        
+        return left + 1, right - 1
+
 
