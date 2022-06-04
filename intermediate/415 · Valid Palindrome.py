@@ -27,6 +27,29 @@ class Solution:
     """
     def is_palindrome(self, s: str) -> bool:
         # write your code here
+        left, right = 0, len(s) - 1
+        
+        while left < right:
+            while left < right and not s[left].isalnum():
+                left += 1
+            while left < right and not s[right].isalnum():
+                right -= 1
+            if left >= right:
+                return True
+            if s[left].lower() != s[right].lower():
+                return False
+            left, right = left + 1, right - 1
+
+        return True
+
+
+class Solution:
+    """
+    @param s: A string
+    @return: Whether the string is a valid palindrome
+    """
+    def is_palindrome(self, s: str) -> bool:
+        # write your code here
         l, r = 0, len(s) - 1
         while True:
             while l < r and self.not_alnum(s[l]):
