@@ -81,7 +81,8 @@ class Solution:
                 nums[i] = color
 
 
-# still a bit puzzled
+
+# partition similar to quick sort
 class Solution:
     """
     @param nums: A list of integer which is 0, 1 or 2
@@ -89,29 +90,42 @@ class Solution:
     """
     def sort_colors(self, nums: List[int]):
         # write your code here
-        left, right = 0, len(nums) - 1
-        while left < right:
-            while left < right and nums[left] <= 1:
-                left += 1
-            while left < right and nums[right] > 1:
-                right -= 1
-            if left >= right:
-                break
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-            right -= 1
-
-        left = 0
-        while left < right:
-            while left < right and nums[left] < 1:
-                left += 1
-            while left < right and nums[right] > 0:
-                right -= 1
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-            right -= 1
-
+        start, end = 0, len(nums) - 1
+        end = self.partition(nums, start, end, 2)
+        self.partition(nums, start, end, 1)
         
+    def partition(self, nums, start, end, pivot):
+        left, right = start, end
+        while left <= right:
+            while left <= right and nums[left] < pivot:
+                left += 1
+            while left <= right and nums[right] = pivot:
+                right -= 1
+            if left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+
+        return right
+       
+    def partition(self, nums, start, end, pivot):
+        # not recommended
+        left, right = start, end
+        while left < right:
+            while left < right and nums[left] < pivot:
+                left += 1
+            while left < right and nums[right] == pivot:
+                right -= 1
+            if left < right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+        if nums[right] == pivot:
+            right -= 1
+
+        return right
+
+
 class Solution:
     """
     @param nums: A list of integer which is 0, 1 or 2

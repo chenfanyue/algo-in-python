@@ -56,8 +56,8 @@ class TwoSum:
     #     # write your code here
     #     for num1 in self.count:
     #         num2 = value - num1
-    #         at_least = 2 if num2 == num1 else 1
-    #         if self.count.get(num2, 0) >= at_least:
+    #         desired_cnt = 2 if num2 == num1 else 1
+    #         if self.count.get(num2, 0) >= desired_cnt:
     #             return True
         
     #     return False
