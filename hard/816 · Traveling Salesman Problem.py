@@ -8,7 +8,7 @@ class Result:
         self.min_cost = float('inf')
 
 
-# dfs
+# 剪枝版dfs
 class Solution:
     """
     @param n: an integer,denote the number of cities
@@ -61,6 +61,10 @@ class Solution:
         return graph
 
     def has_shorter_path(self, path, to, graph):
+        # no road between path[-1] and to
+        if graph[path[-1]][to] == float('inf'):
+            return True
+        
         # path[0] to the city to visit has a shorter path
         for i in range(1, len(path)):
             if graph[path[i - 1]][path[i]] + graph[path[-1]][to] > \
