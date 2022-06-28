@@ -2,7 +2,7 @@ from typing import (
     List,
 )
 
-# 基于交换每次确定一位, not recommended
+# 基于交换每次确定一位
 class Solution:
     """
     @param s: A string
@@ -14,7 +14,7 @@ class Solution:
         if not s:
             return ['']
         
-        arr = sorted(s)
+        arr = list(s)
         res = []
         
         self.dfs(arr, 0, res)
@@ -34,6 +34,46 @@ class Solution:
             self.swap(i, j, arr)
             self.dfs(arr, i + 1, res)
             self.swap(i, j, arr)
+
+    def swap(self, i, j, arr):
+        arr[i], arr[j] = arr[j], arr[i]
+
+
+class Solution:
+    """
+    @param s: A string
+    @return: all permutations
+             we will sort your return value in output
+    """
+    def string_permutation2(self, s: str) -> List[str]:
+        # write your code here
+        if not s:
+            return ['']
+        
+        arr = list(s)
+        res = []
+        
+        self.dfs(arr, 0, res)
+
+        return res
+
+    def dfs(self, arr, i, res):
+        if i == len(arr):
+            res.append(''.join(arr))
+            return
+        
+        for j in range(i, len(arr)):
+            if not self.can_swap(arr, i, j):
+                continue
+            self.swap(i, j, arr)
+            self.dfs(arr, i + 1, res)
+            self.swap(i, j, arr)
+    
+    def can_swap(self, arr, start, j):
+        for k in range(start, j):
+            if arr[k] == arr[j]:
+                return False
+        return True
 
     def swap(self, i, j, arr):
         arr[i], arr[j] = arr[j], arr[i]
