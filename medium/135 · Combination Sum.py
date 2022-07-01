@@ -2,6 +2,80 @@ from typing import (
     List,
 )
 
+# 逼近法/消除法, dfs
+class Solution:
+    """
+    @param candidates: A list of integers
+    @param target: An integer
+    @return: A list of lists of integers
+             we will sort your return value in output
+    """
+    def combination_sum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # write your code here
+        if not candidates:
+            return []
+        
+        arr = sorted(set(candidates))
+
+        start = 0
+        comb = []
+        res = []
+        gap = target
+        self.dfs(arr, start, comb, gap, res)
+
+        return res
+    
+    def dfs(self, arr, start, comb, gap, res):
+        if gap == 0:
+            res.append(list(comb))
+            return
+        
+        for i in range(start, len(arr)):
+            if arr[i] > gap:
+                return
+            comb.append(arr[i])
+            self.dfs(arr, i, comb, gap - arr[i], res)
+            comb.pop()
+
+
+# 累加法/超级剪枝, dfs
+class Solution:
+    """
+    @param candidates: A list of integers
+    @param target: An integer
+    @return: A list of lists of integers
+             we will sort your return value in output
+    """
+    def combination_sum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # write your code here
+        if not candidates:
+            return []
+        
+        arr = sorted(set(candidates))
+
+        start = 0
+        comb = []
+        res = []
+        self.dfs(arr, start, comb, 0, target, res)
+
+        return res
+    
+    def dfs(self, arr, start, comb, comb_sum, target, res):
+        if comb_sum == target:
+            res.append(list(comb))
+            return
+        
+        for i in range(start, len(arr)):
+            comb.append(arr[i])
+            comb_sum += arr[i]
+            if comb_sum > target:
+                comb.pop()
+                return
+            self.dfs(arr, i, comb, comb_sum, target, res)
+            comb.pop()
+            comb_sum -= arr[i]
+
+
 class Solution:
     """
     @param candidates: A list of integers
@@ -132,44 +206,4 @@ class Solution:
                 comb.pop()
                 return
             self.dfs(arr, i, end, comb, comb_sum, target, res)
-            comb.pop()
-
-
-# 非完全数据预处理 + 超级剪枝
-class Solution:
-    """
-    @param candidates: A list of integers
-    @param target: An integer
-    @return: A list of lists of integers
-             we will sort your return value in output
-    """
-    def combination_sum(self, candidates: List[int], target: int) -> List[List[int]]:
-        # write your code here
-        if not candidates:
-            return []
-        
-        arr = sorted(set(candidates))
-
-        start = 0
-        comb = []
-        res = []
-        self.dfs(arr, start, comb, 0, target, res)
-
-        return res
-    
-    def dfs(self, arr, start, comb, comb_sum, target, res):
-        if comb_sum == target:
-            res.append(list(comb))
-            return
-        
-        for i in range(start, len(arr)):
-            if arr[i] > target:
-                return
-            comb.append(arr[i])
-            comb_sum = sum(comb)
-            # print(comb)
-            if comb_sum > target:
-                comb.pop()
-                return
-            self.dfs(arr, i, comb, comb_sum, target, res)
             comb.pop()
