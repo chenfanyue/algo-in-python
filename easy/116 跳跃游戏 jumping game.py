@@ -123,7 +123,7 @@ class Solution:
 
 
 # solution 4
-# T = O(n^2), algo: dp-pre
+# T = O(n^2), algo: accelerated dp-pre
 class Solution:
     """
     @param a: A list of integers
@@ -133,13 +133,19 @@ class Solution:
         # write your code here
         if not a:
             return False
-        n: int = len(a)
-        res: List[bool] = [False] * n
-        res[0] = True
-        for current in range(1, n):
-            for j in range(current):
-                if res[j] == True and j + a[j] >= current:
-                    res[current] = True
+        
+        n = len(a)
+        dp = [False] * n
+        
+        dp[0] = True
+        
+        for i in range(1, n):
+            for j in range(i):
+                if dp[j] and j + a[j] >= i:
+                    dp[i] = True
                     break
-        return res[n - 1]
+            if dp[i] == False:
+                return False
+        
+        return True # dp[n - 1]
 
