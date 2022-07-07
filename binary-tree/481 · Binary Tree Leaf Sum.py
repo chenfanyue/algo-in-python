@@ -87,3 +87,32 @@ class Solution:
         
         return res
 
+
+# inorder traverse, iteration
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: An integer
+    """
+    def leaf_sum(self, root: TreeNode) -> int:
+        res = 0
+        stack = []
+        
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
+            
+            root = stack.pop()
+            if not root.left and not root.right:
+                res += root.val
+            
+            if root.right:
+                root = root.right
+                continue
+            
+            root = None
+
+        return res
+
+
