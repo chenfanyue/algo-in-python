@@ -25,6 +25,34 @@ class Solution:
     @return: An Integer
     """
     def climb_stairs2(self, n: int) -> int:
+        memo = {}
+
+        return self.dfs(0, n, memo)
+    
+    def dfs(self, begin, n, memo):
+        if begin == n:
+            return 1
+        
+        if begin in memo:
+            return memo[begin]
+        
+        res = 0
+        for i in range(begin + 1, n + 1):
+            if i - begin > 3:
+                break
+            res += self.dfs(i, n, memo)
+        
+        memo[begin] = res
+        return res
+
+
+# memoized search
+class Solution:
+    """
+    @param n: An integer
+    @return: An Integer
+    """
+    def climb_stairs2(self, n: int) -> int:
         if n == 0:
             return 1
         
@@ -46,6 +74,35 @@ class Solution:
         res = self.dfs(n - 1, memo) + \
                 self.dfs(n - 2, memo) + \
                 self.dfs(n - 3, memo)
+        
+        memo[n] = res
+        return res
+
+
+# memoized search
+class Solution:
+    """
+    @param n: An integer
+    @return: An Integer
+    """
+    def climb_stairs2(self, n: int) -> int:
+        memo = {}
+
+        return self.dfs(n, memo)
+    
+    def dfs(self, n, memo):
+        if n == 0:
+            return 1
+        
+        if n in memo:
+            return memo[n]
+        
+        res = 0
+        for i in range(1, 4):
+            remaining = n - i
+            if remaining < 0:
+                break
+            res += self.dfs(remaining, memo)
         
         memo[n] = res
         return res
