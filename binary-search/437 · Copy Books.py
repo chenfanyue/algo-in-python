@@ -9,7 +9,46 @@ class Solution:
     @param k: An integer
     @return: an integer
     """
-    def copy_books(self, books: List[int], k: int) -> int:
+    def copy_books(self, books: List[int], k: int) -> int: # v1
+        if not books:
+            return 0
+        if k >= len(books):
+            return max(books)
+        
+        left, right = max(books), sum(books)
+        res = 0
+        while left <= right:
+            mid = (left + right) >> 1
+            if self.need_workers(books, mid) == k:
+                res = mid
+                right = mid - 1
+            elif self.need_workers(books, mid) < k:
+                res = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+        
+        return res
+
+    def copy_books(self, books: List[int], k: int) -> int: # v2
+        if not books:
+            return 0
+        if k >= len(books):
+            return max(books)
+        
+        left, right = max(books), sum(books)
+        res = 0
+        while left <= right:
+            mid = (left + right) >> 1
+            if self.need_workers(books, mid) <= k:
+                res = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+        
+        return res
+
+    def copy_books(self, books: List[int], k: int) -> int: # v3
         if not books:
             return 0
         if k >= len(books):

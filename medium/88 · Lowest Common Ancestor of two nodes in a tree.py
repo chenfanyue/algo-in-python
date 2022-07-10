@@ -22,18 +22,29 @@ class Solution:
         path_a, path_b = [], []
         self.get_path(root, A, path_a)
         self.get_path(root, B, path_b)
+
+        shorter, longer = path_a, path_b
+        if len(path_a) > len(path_b):
+            shorter, longer = path_b, path_a
         
-        a_len, b_len = len(path_a), len(path_b)
-        i = 0
-        while i < a_len and i < b_len:
-            if path_a[i] == path_b[i]:
-                i += 1
-            else:
-                return path_a[i - 1]
+        for i in range(len(shorter)):
+            if shorter[i] != longer[i]:
+                return shorter[i - 1]
         
-        if len(path_a) <= len(path_b):
-            return path_a[i - 1]
-        return path_b[i - 1]
+        return shorter[-1]
+        
+        # left, right = 0, len(shorter) - 1
+        # idx = -1
+        # while left <= right:
+        #     mid = (left + right) >> 1
+        #     if shorter[mid] == longer[mid]:
+        #         idx = mid
+        #         left = mid + 1
+        #     else:
+        #         right = mid - 1
+        
+        # return shorter[idx]
+
 
     def get_path(self, root, node, path=[]):
         if not root:
@@ -54,4 +65,26 @@ class Solution:
         path.pop()
 
 
-
+# 不理解
+class Solution:
+    """
+    @param: root: The root of the binary tree.
+    @param: A: A TreeNode in a Binary.
+    @param: B: A TreeNode in a Binary.
+    @return: Return the least common ancestor(LCA) of the two nodes.
+    """
+    def lowestCommonAncestor(self, root, A, B):
+        if not root:
+            return None
+        if root == A or root == B:
+            return root
+        
+        left = self.lowestCommonAncestor(root.left, A, B)
+        right = self.lowestCommonAncestor(root.right, A, B)
+        if left and right:
+            return root
+        if left:
+            return left
+        if right:
+            return right
+        return None

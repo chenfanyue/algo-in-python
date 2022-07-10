@@ -78,3 +78,27 @@ class Solution:
         
         return res
     
+
+# 中序遍历的非递归写法
+class Solution:
+    """
+    @param root: A Tree
+    @return: Inorder in ArrayList which contains node values.
+    """
+    def inorder_traversal(self, root: TreeNode) -> List[int]:
+        dummy = TreeNode(None)
+        dummy.right = root
+        res = []
+        stack = [dummy]
+
+        while stack:
+            root = stack.pop()
+            if root.right:
+                root = root.right
+                while root:
+                    stack.append(root)
+                    root = root.left
+            if stack:
+                res.append(stack[-1].val)
+        
+        return res
