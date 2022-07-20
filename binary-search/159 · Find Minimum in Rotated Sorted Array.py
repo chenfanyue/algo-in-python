@@ -8,7 +8,6 @@ class Solution:
     @return: the minimum number in the array
     """
     def find_min(self, nums: List[int]) -> int:
-        # write your code here
         if not nums:
             return float('-inf')
         # if len(nums) == 1:
@@ -19,10 +18,9 @@ class Solution:
         left, right = 0, len(nums) - 1
         while left + 1 < right:
             mid = left + (right - left) // 2
-            val = nums[mid]
-            if val > nums[0]:
+            if nums[mid] > nums[0]:
                 left = mid
-            if val < nums[-1]:
+            if nums[mid] < nums[-1]:
                 right = mid
         
         return min(nums[left], nums[right])
@@ -46,3 +44,5 @@ class Solution:
                 end = mid
                 
         return min(nums[start], nums[end])
+
+
