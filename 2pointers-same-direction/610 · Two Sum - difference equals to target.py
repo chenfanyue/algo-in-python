@@ -2,6 +2,36 @@ from typing import (
     List,
 )
 
+# 优雅高效写法
+class Solution:
+    """
+    @param nums: an array of Integer
+    @param target: an integer
+    @return: [num1, num2] (index1 < index2)
+    """
+    def two_sum7(self, nums: List[int], target: int) -> List[int]:
+        if not nums or len(nums) < 2:
+            return [-1, -1]
+        
+        target = abs(target)
+        j = 0
+
+        for i in range(1, len(nums)):
+            if nums[i] - nums[j] < target:
+                continue
+            if nums[i] - nums[j] == target:
+                return [nums[j], nums[i]]
+
+            while nums[i] - nums[j] > target:
+                j += 1
+                if j == i:
+                    break
+                if nums[i] - nums[j] == target:
+                    return [nums[j], nums[i]]
+        
+        return [-1, -1]
+
+
 # 2pointers, same direction
 class Solution:
     """
