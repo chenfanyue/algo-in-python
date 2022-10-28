@@ -70,11 +70,12 @@ class Solution:
             root = stack.pop()
             res.append(root.val)
 
-            if root.right:
-                root = root.right
-                continue
+            # if root.right:
+            #     root = root.right
+            #     continue
             
-            root = None
+            # root = None
+            root = root.right
         
         return res
     
