@@ -9,7 +9,6 @@ class Solution:
     @return: [index1, index2] (index1 < index2)
     """
     def two_sum(self, numbers: List[int], target: int) -> List[int]:
-        # write your code here
         hashdict = dict()
         for i in range(len(numbers)):
             if (val := target - numbers[i]) in hashdict:
@@ -26,7 +25,6 @@ class Solution:
     @return: [index1, index2] (index1 < index2)
     """
     def two_sum(self, numbers: List[int], target: int) -> List[int]:
-        # write your code here
         if not numbers:
             return [-1, -1]
         

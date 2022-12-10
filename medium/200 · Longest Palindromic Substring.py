@@ -1,4 +1,21 @@
 class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        l, r = 0, -1
+        j = i = 0
+        while i < len(s):
+            while j+1 < len(s) and s[j+1] == s[i]:
+                j += 1
+            iNext = j + 1
+            while i-1 >= 0 and j+1 < len(s) and s[i-1] == s[j+1]:
+                i -= 1
+                j += 1
+            if j-i > r-l:
+                l, r = i, j
+            j = i = iNext
+        return s[l : r+1]
+
+
+class Solution:
     """
     @param s: input string
     @return: a string as the longest palindromic substring
